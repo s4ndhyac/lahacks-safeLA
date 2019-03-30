@@ -18,7 +18,7 @@ def predictSafeLA(x, y):
   #Output Layer
   model.add(Dense(10, activation='softmax'))
 
-  model.load_weights("/Users/sandhya/Documents/repos/lahacks-safeLA/ML-models/safety_score/rentLA_weights.hdf5")
+  model.load_weights("safeLA_weights.npy")
 
   data = array([[x,y]])
   predictions = model.predict(data[0:1])

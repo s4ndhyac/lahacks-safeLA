@@ -1,27 +1,27 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
-from sqlalchemy import create_engine
 from json import dumps
 #import sys
 #sys.path.insert(0,'/lahacks-safeLA/ML-models')
 from safeLA_predict import predictSafeLA
 #from ML-models/safeLA_predict.py import predictSafeLA
 #from flask.ext.jsonpify import jsonify
+import numpy as np
 
 app = Flask(__name__)
 api = Api(app)
 
-class safeLA(Resource):
-    def get(self,x,y):
-       	result = predictSafeLA(x,y)
-        max = 0
-        for i in range(10):
-            if (result[i]>result[max]):
-                max = i
-        max = max+1
-        return max
+@app.route('/safeLA/')
+def getSafeLAScore():
+  x = request.args.get('x')
+  y = request.args.get('y')
+  result = predictSafeLA(x, y)
+  argmax = np.argmax(result)
+  label_dict = {pos: letter
+                for pos, letter in enumerate(range(0,10))}
+  max = label_dict[argmax] + 1
+  return str(max)
 
-api.add_resource(safeLA, '/safeLA')
 
 if __name__ == '__main__':
-    app.run(port="5002")
+  app.run(debug=True, port="5002")
