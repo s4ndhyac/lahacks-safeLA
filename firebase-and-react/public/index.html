@@ -24,6 +24,19 @@
 </head>
 
 <body>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+
   <script type="text/javascript">
     function initMap() {
       var map = new google.maps.Map(document.getElementById('map'), {
@@ -61,6 +74,20 @@
         infowindow.close();
         marker.setVisible(false);
         var place = autocomplete.getPlace();
+
+        lat = place.geometry.location.lat();
+        long = place.geometry.location.lng();
+
+        //http://localhost:5000/rentLA/?x=34.2819045&y=-118.3918905
+        //http://localhost:5000/safeLA/?x=34.2819045&y=-118.3918905
+
+        const userAction = async () => {
+          const response = await fetch('http://localhost:5000/rentLA/?x=' + lat + '&y=' + long);
+          const myJson = await response.json(); //extract JSON from the http response
+          const predictedRent = myJson[0][0];
+          console.log(predictedRent);
+        }
+
         if (!place.geometry) {
           // User entered the name of a Place that was not suggested and
           // pressed the Enter key, or the Place Details request failed.
