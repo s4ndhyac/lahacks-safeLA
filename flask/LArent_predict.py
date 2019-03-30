@@ -7,7 +7,7 @@ from keras.layers import Dense
 from numpy import array
 
 
-def predictSafeLA(x, y):
+def predictRentLA(x, y):
   NN_model = Sequential()
   NN_model.add(Dense(100, input_dim=2, kernel_initializer='normal', activation='relu'))
   NN_model.add(Dense(1, kernel_initializer='normal'))
