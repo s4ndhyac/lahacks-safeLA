@@ -28,7 +28,7 @@ def getRent():
   y = request.args.get('y')
   result = predictRentLA(x, y)
   rentavg = np.array2string(result, precision=3, separator="")
-  return str(rentavg)
+  return rentavg
 
 if __name__ == '__main__':
   app.run(debug=True, port="5002")
