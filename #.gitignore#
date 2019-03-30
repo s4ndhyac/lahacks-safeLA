@@ -1,0 +1,4 @@
+*.sqlite
+*.suo
+*.pyc
+__pycache__
