@@ -13,6 +13,8 @@ def predictSafeLA(x, y):
 
   #First Hidden Layer
   model.add(Dense(20, activation='relu', kernel_initializer='random_normal', input_shape=(2,)))
+  #Second  Hidden Layer
+  model.add(Dense(20, activation='relu'))
   #Output Layer
   model.add(Dense(10, activation='softmax'))
 
