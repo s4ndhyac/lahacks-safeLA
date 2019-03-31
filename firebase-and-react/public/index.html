@@ -19,11 +19,12 @@
       Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-  <title>React App</title>
-</head>
 
-<body>
+
+    -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -36,6 +37,11 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
     crossorigin="anonymous"></script>
+  <title>React App</title>
+</head>
+
+<body>
+  <link href="./src/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
 
   <script type="text/javascript">
     function initMap() {
@@ -78,39 +84,49 @@
         lat = place.geometry.location.lat();
         long = place.geometry.location.lng();
 
-        //http://localhost:5000/rentLA/?x=34.2819045&y=-118.3918905
-        //http://localhost:5000/safeLA/?x=34.2819045&y=-118.3918905
-
         // Create a request variable and assign a new XMLHttpRequest object to it.
-        var request = new XMLHttpRequest();
-        console.log(request);
-        // Open a new connection, using the GET request on the URL endpoint
-        const url = 'http://localhost:5000/rentLA/?x=34.2819045&y=-118.3918905';
-        //const url = 'http://localhost:5000/rentLA/?x=' + lat.toString() + '&y=' + long.toString();
-        request.open('GET', url);
-        console.log(request);
-        request.onload = function () {
-          // Begin accessing JSON data here
-          var data = JSON.parse(this.response)
-          console.log(data);
-          console.log(data[0][0]);
+        var requestSafetyScore = new XMLHttpRequest();
 
+        // Open a new connection, using the GET request on the URL endpoint
+        //const safeLAurl = 'http://localhost:5000/safeLA/?x=34.285&y=-118.3918905';
+        const safeLAurl = 'http://localhost:5000/safeLA/?x=' + lat.toString() + '&y=' + long.toString();
+        requestSafetyScore.open('GET', safeLAurl);
+
+        requestSafetyScore.onload = function () {
+          // Begin accessing JSON data here
+          //var data = JSON.parse(this.response)
+
+          console.log(this.response);
+          document.getElementById("safeLA").innerHTML = this.response;
+        }
+        // Send request
+        requestSafetyScore.send();
+
+        // sleep time expects milliseconds
+        function sleep(time) {
+          return new Promise((resolve) => setTimeout(resolve, time));
         }
 
-        // Send request
-        request.send();
+        // Usage!
+        sleep(500).then(() => {
+          // Do something after the sleep!
+          // Create a request variable and assign a new XMLHttpRequest object to it.
+          var request = new XMLHttpRequest();
 
+          // Open a new connection, using the GET request on the URL endpoint
+          const url = 'http://localhost:5000/rentLA/?x=' + lat.toString() + '&y=' + long.toString();
+          request.open('GET', url);
+          request.onload = function () {
+            // Begin accessing JSON data here
+            var data = JSON.parse(this.response)
+            console.log(data[0][0]);
+            document.getElementById("rentLA").innerHTML = data[0][0];
+          }
+          // Send request
+          request.send();
 
+        });
 
-        // const userAction = async () => {
-        //   const url = 'http://localhost:5000/rentLA/?x=' + lat.toString() + '&y=' + long.toString();
-        //   const response = await fetch('https://google.com');
-        //   console.log(response);
-        //   const myJson = await response.json(); //extract JSON from the http response
-        //   console.log(myJson);
-        //   const predictedRent = myJson[0][0];
-        //   console.log(predictedRent);
-        // }
 
         if (!place.geometry) {
           // User entered the name of a Place that was not suggested and
