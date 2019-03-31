@@ -118,9 +118,9 @@
           request.open('GET', url);
           request.onload = function () {
             // Begin accessing JSON data here
-            var data = JSON.parse(this.response)
-            console.log(data[0][0]);
-            document.getElementById("rentLA").innerHTML = data[0][0];
+            // var data = JSON.parse(this.response)
+            // console.log(data[0][0]);
+            document.getElementById("rentLA").innerHTML = this.response;
           }
           // Send request
           request.send();
