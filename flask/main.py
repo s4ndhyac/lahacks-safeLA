@@ -30,5 +30,9 @@ def getRent():
   rentavg = np.array2string(result, precision=3, separator="")
   return rentavg
 
+@app.route('/test/')
+def getTest():
+  return "Hello World"
+
 if __name__ == '__main__':
-  app.run(debug=True, port="5002")
+  app.run()
