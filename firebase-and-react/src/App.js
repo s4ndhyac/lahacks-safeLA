@@ -10,7 +10,7 @@ class App extends Component {
       <div>
         <div className="column info">
           <center>
-            <h1>Safe LA</h1>
+            <h1>SaferLA</h1>
             <h6>Find out how safe and affordable your area is</h6>
           </center>
           <hr />
