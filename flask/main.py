@@ -8,11 +8,14 @@ from LArent_predict import predictRentLA
 #from flask.ext.jsonpify import jsonify
 import numpy as np
 
+from keras import backend as K
+
 app = Flask(__name__)
 api = Api(app)
 
 @app.route('/safeLA/')
 def getSafeLAScore():
+  K.clear_session()
   x = request.args.get('x')
   y = request.args.get('y')
   result = predictSafeLA(x, y)
@@ -24,11 +27,16 @@ def getSafeLAScore():
 
 @app.route('/rentLA/')
 def getRent():
+  K.clear_session()
   x = request.args.get('x')
   y = request.args.get('y')
   result = predictRentLA(x, y)
   rentavg = np.array2string(result, precision=3, separator="")
   return rentavg
 
+@app.route('/test/')
+def getTest():
+  return "Hello World"
+
 if __name__ == '__main__':
-  app.run(debug=True, port="5002")
+  app.run()
