@@ -81,12 +81,36 @@
         //http://localhost:5000/rentLA/?x=34.2819045&y=-118.3918905
         //http://localhost:5000/safeLA/?x=34.2819045&y=-118.3918905
 
-        const userAction = async () => {
-          const response = await fetch('http://localhost:5000/rentLA/?x=' + lat + '&y=' + long);
-          const myJson = await response.json(); //extract JSON from the http response
-          const predictedRent = myJson[0][0];
-          console.log(predictedRent);
+        // Create a request variable and assign a new XMLHttpRequest object to it.
+        var request = new XMLHttpRequest();
+        console.log(request);
+        // Open a new connection, using the GET request on the URL endpoint
+        const url = 'http://localhost:5000/rentLA/?x=34.2819045&y=-118.3918905';
+        //const url = 'http://localhost:5000/rentLA/?x=' + lat.toString() + '&y=' + long.toString();
+        request.open('GET', url);
+        console.log(request);
+        request.onload = function () {
+          // Begin accessing JSON data here
+          var data = JSON.parse(this.response)
+          console.log(data);
+          console.log(data[0][0]);
+
         }
+
+        // Send request
+        request.send();
+
+
+
+        // const userAction = async () => {
+        //   const url = 'http://localhost:5000/rentLA/?x=' + lat.toString() + '&y=' + long.toString();
+        //   const response = await fetch('https://google.com');
+        //   console.log(response);
+        //   const myJson = await response.json(); //extract JSON from the http response
+        //   console.log(myJson);
+        //   const predictedRent = myJson[0][0];
+        //   console.log(predictedRent);
+        // }
 
         if (!place.geometry) {
           // User entered the name of a Place that was not suggested and
