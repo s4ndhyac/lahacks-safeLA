@@ -27,9 +27,13 @@ There are 3 componenets to the application:
 
 Now navigate to `http://localhost:3000` to see the app in action
 
+NOTE: Also ensure that CORS is enabled on your browser. An easy hacky way is to install the chrome extension Allow-Control-Allow-Origin: *
+
+
 ## Future Work
 - Adjust the hyperparameters of the neural network to improve the prediction accuracy
 - Deploy the flask application to an application server such as Google AppEngine 
 - Deploy the react application to Firebase
+- Enable CORS in the application itself
 
 
