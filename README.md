@@ -10,6 +10,9 @@ There are 3 componenets to the application:
     - A regression model is used to predict the rent of a house at the place
 - We use the Flask framework to create APIs to output the result of the neural networks
 - At the top is the react firebase application that comprises the user interface
+- The dataset used was from the lacity open data and the USC socrata dataset:
+    - https://data.lacity.org/A-Safe-City/Crime-Data-from-2010-to-Present/y8tr-7khq/data
+    - https://usc.data.socrata.com/widgets/4a97-v5tx
 
 ## Build Instructions
 
