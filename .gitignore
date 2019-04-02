@@ -1,4 +1,8 @@
 *.sqlite
 *.suo
 *.pyc
-__pycache__
+/__pycache__
+/.vs
+/.vscode
+/env
+/venv
